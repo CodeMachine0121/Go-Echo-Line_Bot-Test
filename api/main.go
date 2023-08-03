@@ -1,8 +1,8 @@
 package handler
 
 import (
-	handlers "go-line/Hamdlers"
-	models "go-line/Models"
+	Handlers "go-line/Hamdlers"
+	Models "go-line/Models"
 	"net/http"
 	"os"
 
@@ -10,7 +10,7 @@ import (
 )
 
 var bot *linebot.Client
-var msgHandler *handlers.MessageHandler
+var msgHandler *Handlers.MessageHandler
 
 func init() {
 	channel_access_token := os.Getenv("CHANNEL_ACCESS_TOKEN")
@@ -27,7 +27,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 			case *linebot.TextMessage:
 				msgHandler.Handle(
-					&models.HandleDto{
+					&Models.HandleDto{
 						Event:   *event,
 						Message: *eventMessage,
 						Bot:     *bot,
