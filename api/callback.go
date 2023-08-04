@@ -1,6 +1,7 @@
 package api
 
 import (
+	LineHandlers "go-line/Handlers"
 	"net/http"
 	"os"
 
@@ -8,13 +9,13 @@ import (
 )
 
 var bot *linebot.Client
-var executor *MessageHandler
+var executor *LineHandlers.MessageHandler
 
 func init() {
 	channel_access_token := os.Getenv("CHANNEL_ACCESS_TOKEN")
 	channel_secret := os.Getenv("CHANNEL_SECRET")
 	bot, _ = linebot.New(channel_secret, channel_access_token)
-	executor = NewMessageHandler()
+	executor = LineHandlers.NewMessageHandler()
 	executor.Dto.Bot = bot
 }
 

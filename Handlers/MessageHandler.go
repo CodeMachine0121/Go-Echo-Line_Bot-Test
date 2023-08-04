@@ -1,13 +1,14 @@
-package api
+package LineHandlers
 
 import (
+	"go-line/Models"
 	"log"
 
 	"github.com/line/line-bot-sdk-go/v7/linebot"
 )
 
 type MessageHandler struct {
-	Dto *HandleDto
+	Dto *Models.HandleDto
 }
 
 func (m *MessageHandler) Handle() {
