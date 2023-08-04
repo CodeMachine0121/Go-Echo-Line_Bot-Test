@@ -18,6 +18,8 @@ func (m *MessageHandler) Handle() {
 	}
 }
 
-func NewMessageHandler() *MessageHandler {
-	return &MessageHandler{}
+func NewMessageHandler(dto *Models.HandleDto) *MessageHandler {
+	return &MessageHandler{
+		Dto: dto,
+	}
 }
