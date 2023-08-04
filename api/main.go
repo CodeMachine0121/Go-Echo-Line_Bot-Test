@@ -1,7 +1,7 @@
 package handler
 
 import (
-	handler "go-line/Hamdlers"
+	handler "go-line/Handlers"
 	"net/http"
 	"os"
 
@@ -32,5 +32,4 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-
 }
