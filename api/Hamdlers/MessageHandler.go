@@ -1,17 +1,22 @@
-package handlers
+package handler
 
 import (
-	Models "go-line/Models"
 	"log"
 
 	"github.com/line/line-bot-sdk-go/v7/linebot"
 )
 
-type MessageHandler struct{}
+type MessageHandler struct {
+	Dto *HandleDto
+}
 
-func (m *MessageHandler) Handle(dto *Models.HandleDto) {
-	_, err := dto.Bot.ReplyMessage(dto.Event.ReplyToken, linebot.NewTextMessage(dto.Message.Text)).Do()
+func (m *MessageHandler) Handle() {
+	_, err := m.Dto.Bot.ReplyMessage(m.Dto.Event.ReplyToken, linebot.NewTextMessage(m.Dto.Message.Text)).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func NewMessageHandler() *MessageHandler {
+	return &MessageHandler{}
 }

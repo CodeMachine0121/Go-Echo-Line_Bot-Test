@@ -1,7 +1,13 @@
-package handlers
+package handler
 
-import models "go-line/Models"
+import "github.com/line/line-bot-sdk-go/v7/linebot"
 
 type LineEventHandler interface {
-	Handle(*models.HandleDto)
+	Handle()
+}
+
+type HandleDto struct {
+	Event   *linebot.Event
+	Message *linebot.TextMessage
+	Bot     *linebot.Client
 }

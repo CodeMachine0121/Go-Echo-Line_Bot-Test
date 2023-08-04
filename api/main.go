@@ -1,8 +1,7 @@
 package handler
 
 import (
-	Handlers "go-line/Hamdlers"
-	Models "go-line/Models"
+	handler "go-line/Hamdlers"
 	"net/http"
 	"os"
 
@@ -10,28 +9,26 @@ import (
 )
 
 var bot *linebot.Client
-var msgHandler *Handlers.MessageHandler
+var executor *handler.MessageHandler
 
 func init() {
 	channel_access_token := os.Getenv("CHANNEL_ACCESS_TOKEN")
 	channel_secret := os.Getenv("CHANNEL_SECRET")
 	bot, _ = linebot.New(channel_secret, channel_access_token)
+	executor = handler.NewMessageHandler()
+	executor.Dto.Bot = bot
 }
 
 func Handle(w http.ResponseWriter, r *http.Request) {
 	events, _ := bot.ParseRequest(r)
-
 	for _, event := range events {
+		executor.Dto.Event = event
+
 		if event.Type == linebot.EventTypeMessage {
 			switch eventMessage := event.Message.(type) {
-
 			case *linebot.TextMessage:
-				msgHandler.Handle(
-					&Models.HandleDto{
-						Event:   *event,
-						Message: *eventMessage,
-						Bot:     *bot,
-					})
+				executor.Dto.Message = eventMessage
+				executor.Handle()
 			}
 		}
 	}
