@@ -27,3 +27,7 @@ func CalculateTotals() int {
 	}
 	return sum
 }
+
+func GetTransactionHistory() *Models.TransactionHistory {
+	return &_transactionHistory
+}

@@ -48,6 +48,16 @@ func HandleLineEvent(r *http.Request, bot *linebot.Client) {
 
 					executor.Handle()
 				}
+				if strings.Contains(eventMessage.Text, "end") {
+					executor := LineHandlers.NewSummerHandler(
+						&Models.HandleDto{
+							Bot:     bot,
+							Event:   event,
+							Message: eventMessage,
+						})
+					executor.Handle()
+
+				}
 			}
 
 		}
