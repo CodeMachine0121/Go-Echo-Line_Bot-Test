@@ -11,7 +11,7 @@ func Init() {
 	}
 }
 
-func InserTransaction(tx *Models.SigleTransaction) int {
+func InsertTransaction(tx *Models.SigleTransaction) int {
 
 	_transactionHistory.History = append(_transactionHistory.History, *tx)
 

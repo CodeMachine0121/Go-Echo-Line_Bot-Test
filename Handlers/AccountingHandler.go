@@ -18,7 +18,7 @@ func (a *AccountingHandler) Handle() {
 	// TODO: should contain 3 elements: "count", item, count
 	splitCommand := strings.Split(a.Dto.Message.Text, " ")
 	amount, _ := strconv.Atoi(splitCommand[2])
-	totalSpend := serivces.InserTransaction(&Models.SigleTransaction{
+	totalSpend := serivces.InsertTransaction(&Models.SigleTransaction{
 		Id:     uuid.New(),
 		Item:   splitCommand[1],
 		Amount: amount,

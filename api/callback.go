@@ -17,13 +17,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	channel_secret := os.Getenv("CHANNEL_SECRET")
 
 	bot, err := linebot.New(channel_secret, channel_access_token)
-
 	Utils.ErrorHandle(err)
 
-	HandleLineEvent(w, r, bot)
+	HandleLineEvent(r, bot)
 }
 
-func HandleLineEvent(w http.ResponseWriter, r *http.Request, bot *linebot.Client) {
+func HandleLineEvent(r *http.Request, bot *linebot.Client) {
 
 	events, _ := bot.ParseRequest(r)
 	for _, event := range events {
@@ -43,6 +42,7 @@ func HandleLineEvent(w http.ResponseWriter, r *http.Request, bot *linebot.Client
 				if strings.Contains(eventMessage.Text, "count") {
 					executor := LineHandlers.NewAccountingHandler(
 						&Models.HandleDto{
+							Bot:     bot,
 							Event:   event,
 							Message: eventMessage,
 						})
