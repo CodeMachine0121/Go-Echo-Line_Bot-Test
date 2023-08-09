@@ -30,7 +30,6 @@ func HandleLineEvent(r *http.Request, bot *linebot.Client) {
 			switch eventMessage := event.Message.(type) {
 			case *linebot.TextMessage:
 				if strings.Contains(eventMessage.Text, "echo") {
-
 					executor := LineHandlers.NewMessageHandler(
 						&Models.HandleDto{
 							Event:   event,

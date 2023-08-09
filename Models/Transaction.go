@@ -1,6 +1,10 @@
 package Models
 
-import "github.com/google/uuid"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type TransactionHistory struct {
 	History []SigleTransaction
@@ -8,7 +12,8 @@ type TransactionHistory struct {
 }
 
 type SigleTransaction struct {
-	Id     uuid.UUID
-	Item   string
-	Amount int
+	Id          uuid.UUID
+	Item        string
+	Amount      int
+	CreatedTime time.Time
 }
