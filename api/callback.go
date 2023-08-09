@@ -19,7 +19,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	channel_access_token := os.Getenv("CHANNEL_ACCESS_TOKEN")
 	channel_secret := os.Getenv("CHANNEL_SECRET")
 
-	bot, _ := linebot.New(channel_secret, channel_access_token)
+	bot, err := linebot.New(channel_secret, channel_access_token)
+
+	if err != nil {
+		log.Fatal("linebot create fail", err)
+	}
 
 	executor := LineHandlers.NewMessageHandler(&Models.HandleDto{
 		Bot: bot,
