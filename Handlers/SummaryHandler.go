@@ -15,6 +15,7 @@ type SummerHandler struct {
 
 func (s *SummerHandler) Handle() {
 
+	// TODO: use singleton get history
 	transactionHistory := serivces.GetTransactionHistory()
 	for _, t := range transactionHistory.History {
 
