@@ -18,7 +18,7 @@ func (s *SummerHandler) Handle() {
 	transactionHistory := serivces.GetTransactionHistory()
 	for _, t := range transactionHistory.History {
 
-		replyMsg := t.CreatedTime.String() + " " + t.Item + " " + strconv.Itoa(t.Amount)
+		replyMsg := Utils.GetTimeWithFormat(t.CreatedTime) + " " + t.Item + " " + strconv.Itoa(t.Amount)
 
 		_, err := s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage(replyMsg)).Do()
 
