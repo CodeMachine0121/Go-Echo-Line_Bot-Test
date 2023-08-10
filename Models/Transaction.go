@@ -17,3 +17,8 @@ type SigleTransaction struct {
 	Amount      int
 	CreatedTime time.Time
 }
+
+func (tx *TransactionHistory) InitProperty() {
+	tx.History = []SigleTransaction{}
+	tx.Totals = 0
+}

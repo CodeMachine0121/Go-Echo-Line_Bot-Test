@@ -2,7 +2,7 @@ package LineHandlers
 
 import (
 	"go-line/Models"
-	serivces "go-line/Serivces"
+	singletons "go-line/Singletons"
 	"go-line/Utils"
 	"strconv"
 
@@ -16,7 +16,7 @@ type SummerHandler struct {
 func (s *SummerHandler) Handle() {
 
 	// TODO: use singleton get history
-	transactionHistory := serivces.GetTransactionHistory()
+	transactionHistory := singletons.GetTransactionSingleton()
 	for _, t := range transactionHistory.History {
 
 		replyMsg := Utils.GetTimeWithFormat(t.CreatedTime) + " " + t.Item + " " + strconv.Itoa(t.Amount)

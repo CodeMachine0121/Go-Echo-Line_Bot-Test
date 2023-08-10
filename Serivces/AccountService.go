@@ -1,14 +1,15 @@
 package serivces
 
-import "go-line/Models"
+import (
+	"go-line/Models"
+	singletons "go-line/Singletons"
+)
 
-var _transactionHistory Models.TransactionHistory
+var _transactionHistory *Models.TransactionHistory
 
 func Init() {
-	_transactionHistory = Models.TransactionHistory{
-		History: []Models.SigleTransaction{},
-		Totals:  0,
-	}
+	_transactionHistory = singletons.GetTransactionSingleton()
+	_transactionHistory.InitProperty()
 }
 
 func InsertTransaction(tx *Models.SigleTransaction) int {
@@ -26,8 +27,4 @@ func CalculateTotals() int {
 		sum += _transactionHistory.History[i].Amount
 	}
 	return sum
-}
-
-func GetTransactionHistory() *Models.TransactionHistory {
-	return &_transactionHistory
 }
