@@ -12,6 +12,7 @@ func GetTransactionSingleton() *Models.TransactionHistory {
 
 	once.Do(func() {
 		transactionHistory = new(Models.TransactionHistory)
+		transactionHistory.InitProperty()
 	})
 	return transactionHistory
 }

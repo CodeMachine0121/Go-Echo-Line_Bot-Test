@@ -5,12 +5,7 @@ import (
 	singletons "go-line/Singletons"
 )
 
-var _transactionHistory *Models.TransactionHistory
-
-func Init() {
-	_transactionHistory = singletons.GetTransactionSingleton()
-	_transactionHistory.InitProperty()
-}
+var _transactionHistory = singletons.GetTransactionSingleton()
 
 func InsertTransaction(tx *Models.SigleTransaction) int {
 
