@@ -7,7 +7,7 @@ import (
 )
 
 type TransactionHistory struct {
-	History []SigleTransaction
+	History []*SigleTransaction
 	Totals  int
 }
 
@@ -19,6 +19,6 @@ type SigleTransaction struct {
 }
 
 func (tx *TransactionHistory) InitProperty() {
-	tx.History = []SigleTransaction{}
+	tx.History = []*SigleTransaction{}
 	tx.Totals = 0
 }

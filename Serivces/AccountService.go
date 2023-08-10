@@ -9,7 +9,7 @@ var _transactionHistory = singletons.GetTransactionSingleton()
 
 func InsertTransaction(tx *Models.SigleTransaction) int {
 
-	_transactionHistory.History = append(_transactionHistory.History, *tx)
+	_transactionHistory.History = append(_transactionHistory.History, tx)
 
 	_transactionHistory.Totals = CalculateTotals()
 
