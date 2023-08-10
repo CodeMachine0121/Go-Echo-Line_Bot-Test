@@ -13,21 +13,28 @@ type SummerHandler struct {
 	Dto *Models.HandleDto
 }
 
+// TODO: use singleton get history
+var transactionHistory = singletons.GetTransactionSingleton()
+
 func (s *SummerHandler) Handle() {
+	HandleOnGettingHistory(s)
+	HandleOnClearingHistory(s)
+}
 
-	// TODO: use singleton get history
-	transactionHistory := singletons.GetTransactionSingleton()
-	for _, t := range transactionHistory.History {
-
-		replyMsg := Utils.GetTimeWithFormat(t.CreatedTime) + " " + t.Item + " " + strconv.Itoa(t.Amount)
-
-		_, err := s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage(replyMsg)).Do()
-
-		Utils.ErrorHandle(err)
-	}
-	s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage("Total: "+strconv.Itoa(transactionHistory.Totals)))
+func HandleOnClearingHistory(s *SummerHandler) {
+	transactionHistory.InitProperty()
 }
 
 func NewSummerHandler(dto *Models.HandleDto) *SummerHandler {
 	return &SummerHandler{Dto: dto}
+}
+
+func HandleOnGettingHistory(s *SummerHandler) {
+	for _, t := range transactionHistory.History {
+
+		replyMsg := Utils.GetTimeWithFormat(t.CreatedTime) + " " + t.Item + " " + strconv.Itoa(t.Amount)
+
+		s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage(replyMsg)).Do()
+	}
+	s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage("Total: "+strconv.Itoa(transactionHistory.Totals)))
 }
