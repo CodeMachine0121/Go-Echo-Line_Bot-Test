@@ -5,10 +5,9 @@ import (
 	singletons "go-line/Singletons"
 )
 
-var _transactionHistory = singletons.GetTransactionSingleton()
-
 func InsertTransaction(tx *Models.SigleTransaction) int {
 
+	_transactionHistory := singletons.GetTransactionSingleton()
 	_transactionHistory.History = append(_transactionHistory.History, tx)
 
 	_transactionHistory.Totals = CalculateTotals()
@@ -17,6 +16,8 @@ func InsertTransaction(tx *Models.SigleTransaction) int {
 }
 
 func CalculateTotals() int {
+
+	_transactionHistory := singletons.GetTransactionSingleton()
 	sum := 0
 	for i := 0; i < len(_transactionHistory.History); i++ {
 		sum += _transactionHistory.History[i].Amount

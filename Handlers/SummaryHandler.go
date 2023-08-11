@@ -14,7 +14,6 @@ type SummerHandler struct {
 }
 
 // TODO: use singleton get history
-var transactionHistory = singletons.GetTransactionSingleton()
 
 func (s *SummerHandler) Handle() {
 	HandleOnGettingHistory(s)
@@ -22,6 +21,7 @@ func (s *SummerHandler) Handle() {
 }
 
 func HandleOnClearingHistory(s *SummerHandler) {
+	transactionHistory := singletons.GetTransactionSingleton()
 	transactionHistory.InitProperty()
 }
 
@@ -30,6 +30,8 @@ func NewSummerHandler(dto *Models.HandleDto) *SummerHandler {
 }
 
 func HandleOnGettingHistory(s *SummerHandler) {
+
+	transactionHistory := singletons.GetTransactionSingleton()
 	for _, t := range transactionHistory.History {
 
 		replyMsg := Utils.GetTimeWithFormat(t.CreatedTime) + " " + t.Item + " " + strconv.Itoa(t.Amount)
