@@ -29,7 +29,7 @@ func (a *AccountingHandler) Handle() {
 
 	_, err := a.Dto.Bot.ReplyMessage(a.Dto.Event.ReplyToken, linebot.NewTextMessage(strconv.Itoa(totalSpend))).Do()
 
-	Utils.ErrorHandle(err)
+	go Utils.ErrorHandle(err)
 }
 
 func NewAccountingHandler(dto *Models.HandleDto) *AccountingHandler {

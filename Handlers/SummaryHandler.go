@@ -1,6 +1,7 @@
 package LineHandlers
 
 import (
+	"encoding/json"
 	"go-line/Models"
 	singletons "go-line/Singletons"
 	"go-line/Utils"
@@ -30,14 +31,15 @@ func NewSummerHandler(dto *Models.HandleDto) *SummerHandler {
 }
 
 func HandleOnGettingHistory(s *SummerHandler) {
-
 	transactionHistory := singletons.GetTransactionSingleton()
-	for _, t := range transactionHistory.History {
 
-		replyMsg := Utils.GetTimeWithFormat(t.CreatedTime) + " " + t.Item + " " + strconv.Itoa(t.Amount)
+	transactionHistorySerialized, err := json.Marshal(transactionHistory)
+	Utils.ErrorHandle(err)
 
-		_, err := s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage(replyMsg)).Do()
+	if _, err := s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage(string(transactionHistorySerialized))).Do(); err != nil {
 		Utils.ErrorHandle(err)
 	}
+
+	Utils.ErrorHandle(err)
 	s.Dto.Bot.ReplyMessage(s.Dto.Event.ReplyToken, linebot.NewTextMessage("Total: "+strconv.Itoa(transactionHistory.Totals))).Do()
 }
